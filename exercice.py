@@ -1,37 +1,58 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import statistics
 
 def order(values: list = None) -> list:
     if values is None:
         # TODO: demander les valeurs ici
-        pass
-
-    return []
+        values = []
+        while len(values) < 10:
+            values.append(input("rentrez une value pls"))
+    values.sort()
+    return values
 
 
 def anagrams(words: list = None) -> bool:
     if words is None:
-        # TODO: demander les mots ici
-        pass
-
-    return False
+        words = [str(input("premier mot")), str(input("deuxieme mot"))]
+    if len(words[0]) != len(words[1]):
+        return(False)
+    for lettre in words[0]:
+        if words[0].count(lettre) != words[1].count(lettre):
+            return(False)
+    return(True)
 
 
 def contains_doubles(items: list) -> bool:
-    return False
-
+    for item in items:
+        if items.count(item)>1:
+            return(True)
+    return(False)
 
 def best_grades(student_grades: dict) -> dict:
+
     # TODO: Retourner un dictionnaire contenant le nom de l'étudiant ayant la meilleure moyenne ainsi que sa moyenne
-    return {}
+    best_name = ""
+    best_moyenne = 0
+    for current_name in list(student_grades):
+        current_gradeList = student_grades[current_name]
+        current_moyenne = statistics.mean(current_gradeList)
+        if current_moyenne > best_moyenne:
+            best_moyenne = current_moyenne
+            best_name = current_name
+    return {best_name:best_moyenne}
 
 
-def frequence(sentence: str) -> dict:
+def frequence(sentence: str,countAllChars = True) -> dict: ###selon l'énoncé, seule les lettres devraietn etre contées mais les tests demandent de compter tous les characteres.
     # TODO: Afficher les lettres les plus fréquentes
     #       Retourner le tableau de lettres
-
-    return {}
+    alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY"
+    table = {}
+    for lettre in sentence:
+        if lettre in alphabet or countAllChars:
+            table[lettre] = sentence.count(lettre)
+    print(sorted(table.items(),key = lambda x:x[1], reverse = True)[0])
+    return table
 
 
 def get_recipes():

@@ -49,20 +49,26 @@ def frequence(sentence: str,countAllChars = True) -> dict: ###selon l'énoncé, 
     alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY"
     table = {}
     for lettre in sentence:
-        if lettre in alphabet or countAllChars:
+        if lettre in alphabet or countAllChars and not lettre in table.keys():
             table[lettre] = sentence.count(lettre)
-    print(sorted(table.items(),key = lambda x:x[1], reverse = True)[0])
+    sorted_table = list(sorted(table.items(),key = lambda x:x[1], reverse = True)[0])
     return table
 
 
+recipeDict = {}
+
 def get_recipes():
     # TODO: Demander le nom d'une recette, puis ses ingredients et enregistrer dans une structure de données
-    pass
+    recipeDict[input("nom de la recette")] = input("ingrédients de la recette")
 
 
 def print_recipe(ingredients) -> None:
     # TODO: Demander le nom d'une recette, puis l'afficher si elle existe
-    pass
+    recetteRequest = str(input("nom de la recette"))
+    if recetteRequest in recipeDict.keys():
+        print(recipeDict[recetteRequest])
+    else:
+        print("il n'y a pas de recette nommée " + recetteRequest + " dans cette base donnée")
 
 
 def main() -> None:
